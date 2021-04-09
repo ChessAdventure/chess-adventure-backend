@@ -19,7 +19,7 @@ class UsersController < ApplicationController
       if @user
         render json: {
           user: @user
-      }
+        }
       end
     rescue
       render json: {
