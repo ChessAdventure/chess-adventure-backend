@@ -14,12 +14,14 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
-    if @user
-      render json: {
-        user: @user
-    }
-    else
+    begin
+      @user = User.find(params[:user_id])
+      if @user
+        render json: {
+          user: @user
+      }
+      end
+    rescue
       render json: {
         status: 500,
         errors: ['user not found']
@@ -28,14 +30,16 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(user_params)
-    if @user.save
-      login!  
-      render json: {
-        status: :created,
-        user: @user
-      }
-    else
+    begin
+      @user = User.new(user_params)
+      if @user.save
+        login!  
+        render json: {
+          status: :created,
+          user: @user
+        }
+      end
+    rescue
       render json: {
         status: 500,
         errors: @user.errors.full_messages
