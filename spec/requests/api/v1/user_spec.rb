@@ -21,6 +21,28 @@ describe 'User paths' do
       expect(User.last.id).to eq(data[:user][:id])
       expect(data[:user][:username]).to eq('John Doe')
     end
+
+    it 'should show a user, and users' do
+      user = User.create(username: 'John Doe', password: 'Password')
+
+      get '/api/v1/users'
+
+      expect(response.status).to eq(200)
+
+      data = JSON.parse(response.body, symbolize_names: true)
+
+      expect(data[:users][0][:id]).to eq(user.id)
+      expect(data[:users][0][:username]).to eq(user.username)
+
+      get "/api/v1/users/#{user.id}"
+
+      expect(response.status).to eq(200)
+
+      data = JSON.parse(response.body, symbolize_names: true)
+
+      expect(data[:user][:id]).to eq(user.id)
+      expect(data[:user][:username]).to eq(user.username)
+    end
   end
 
   describe 'sad' do
