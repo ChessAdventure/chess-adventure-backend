@@ -30,20 +30,16 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def create
-    begin
-      @user = User.new(user_params)
-      if @user.save
-        login!  
-        render json: {
-          status: :created,
-          user: @user
-        }
-      end
-    rescue
+    @user = User.new(user_params)
+    if @user.save
+      login!  
       render json: {
-        status: 500,
+        user: @user
+      }, status: :created
+    else
+      render json: {
         errors: @user.errors.full_messages
-      }
+      }, status: 500
     end
   end
 
