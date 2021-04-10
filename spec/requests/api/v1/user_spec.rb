@@ -83,5 +83,25 @@ describe 'User paths' do
 
       expect(data[:errors][0]).to eq("Password confirmation doesn't match Password")
     end
+
+    it 'should not show user' do
+      get '/api/v1/users'
+
+      expect(response.status).to eq(500)
+
+      data = JSON.parse(response.body, symbolize_names: true)
+
+      expect(data[:errors][0]).to eq("no users found")
+
+      user = User.create(username: 'John Doe', password: 'Password')
+
+      get "/api/v1/users/#{user.id + 1}"
+
+      expect(response.status).to eq(500)
+
+      data = JSON.parse(response.body, symbolize_names: true)
+
+      expect(data[:errors][0]).to eq("user not found")
+    end
   end
 end

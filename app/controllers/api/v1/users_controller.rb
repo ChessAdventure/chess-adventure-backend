@@ -1,15 +1,14 @@
 class Api::V1::UsersController < ApplicationController
   def index
     @users = User.all
-    if @users
+    if @users != []
       render json: {
         users: @users
       }
     else
       render json: {
-        status: 500,
         errors: ['no users found']
-      }
+      }, status: 500
     end
   end
 
@@ -23,9 +22,8 @@ class Api::V1::UsersController < ApplicationController
       end
     rescue
       render json: {
-        status: 500,
         errors: ['user not found']
-      }
+      }, status: 500
     end
   end
 
