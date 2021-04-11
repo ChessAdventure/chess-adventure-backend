@@ -6,9 +6,9 @@ class Api::V1::SessionsController < ApplicationController
       render json: UserSerializer.new(@user)
     else
       render json: { 
-        status: 401,
+        # do we need logged_in: false here?
         errors: ['no such user, please try again']
-      }
+      }, status: 401
     end
   end
 
@@ -21,6 +21,7 @@ class Api::V1::SessionsController < ApplicationController
     else
       render json: {
         logged_in: false,
+        # should this msg say 'not logged in' instead?
         message: 'no such user'
       }
     end
@@ -29,9 +30,8 @@ class Api::V1::SessionsController < ApplicationController
   def destroy
     logout!
     render json: {
-      status: 200,
       logged_out: true
-    }
+    }, status: 200
   end
 
   private
