@@ -3,7 +3,7 @@ class Api::V1::SessionsController < ApplicationController
     @user = User.find_by(username: session_params[:username])
     if @user && @user.authenticate(session_params[:password])
       login!
-      render json: UserSerializer.new(user)
+      render json: UserSerializer.new(@user)
     else
       render json: { 
         status: 401,

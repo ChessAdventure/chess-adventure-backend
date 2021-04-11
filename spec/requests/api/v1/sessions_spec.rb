@@ -18,10 +18,9 @@ describe 'User paths' do
 
       expect(response.status).to eq(200)
 
-      data = JSON.parse(response.body, symbolize_names: true)
+      data = JSON.parse(response.body, symbolize_names: true)[:data]
 
-      expect(data[:user][:username]).to eq(user.username)
-      expect(data[:user][:id]).to eq(user.id)
+      expect(data[:attributes][:username]).to eq(user.username)
     end
   end
 
