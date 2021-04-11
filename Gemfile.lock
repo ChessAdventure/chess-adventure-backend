@@ -45,6 +45,7 @@ GEM
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
     arel (9.0.0)
+    bcrypt (3.1.16)
     bootsnap (1.7.3)
       msgpack (~> 1.0)
     builder (3.2.4)
@@ -125,6 +126,8 @@ GEM
       websocket (~> 1.0)
     racc (1.5.2)
     rack (2.2.3)
+    rack-cors (1.1.1)
+      rack (>= 2.0.0)
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
     rails (5.2.5)
@@ -221,6 +224,7 @@ PLATFORMS
   x86_64-darwin-20
 
 DEPENDENCIES
+  bcrypt (~> 3.1.7)
   bootsnap (>= 1.1.0)
   byebug
   fast_jsonapi
@@ -229,6 +233,7 @@ DEPENDENCIES
   pg (>= 0.18, < 2.0)
   pry
   puma (~> 3.11)
+  rack-cors
   rails (~> 5.2.4, >= 5.2.4.5)
   rspec-rails
   shoulda-matchers
