@@ -20,6 +20,7 @@ describe 'User paths' do
 
       data = JSON.parse(response.body, symbolize_names: true)[:data]
 
+      expect(User.last.api_key).to eq(data[:attributes][:api_key])
       expect(data[:attributes][:username]).to eq(user.username)
     end
   end
