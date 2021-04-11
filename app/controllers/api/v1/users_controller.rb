@@ -2,9 +2,7 @@ class Api::V1::UsersController < ApplicationController
   def index
     @users = User.all
     if @users != []
-      render json: {
-        users: @users
-      }
+      render json: UserSerializer.new(@users)
     else
       render json: {
         errors: ['no users found']
@@ -16,9 +14,7 @@ class Api::V1::UsersController < ApplicationController
     begin
       @user = User.find(params[:user_id])
       if @user
-        render json: {
-          user: @user
-        }
+        render json: UserSerializer.new(@user)
       end
     rescue
       render json: {
@@ -31,9 +27,7 @@ class Api::V1::UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       login!  
-      render json: {
-        user: @user
-      }, status: :created
+      render json: UserSerializer.new(@user), status: :created
     else
       render json: {
         errors: @user.errors.full_messages
