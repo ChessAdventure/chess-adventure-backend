@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  white: one
+  black: one
+  status: 1
+  starting_fen: MyString
+  current_fen: MyString
+
+two:
+  white: two
+  black: two
+  status: 1
+  starting_fen: MyString
+  current_fen: MyString
