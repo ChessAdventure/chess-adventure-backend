@@ -16,10 +16,10 @@ describe 'User paths' do
 
       expect(response.status).to eq(201)
 
-      data = JSON.parse(response.body, symbolize_names: true)
+      data = JSON.parse(response.body, symbolize_names: true)[:data]
 
-      expect(User.last.id).to eq(data[:user][:id])
-      expect(data[:user][:username]).to eq('John Doe')
+      expect(User.last.api_key).to eq(data[:attributes][:api_key])
+      expect(data[:attributes][:username]).to eq('John Doe')
     end
 
     it 'should show a user, and users' do
@@ -29,19 +29,19 @@ describe 'User paths' do
 
       expect(response.status).to eq(200)
 
-      data = JSON.parse(response.body, symbolize_names: true)
+      data = JSON.parse(response.body, symbolize_names: true)[:data]
 
-      expect(data[:users][0][:id]).to eq(user.id)
-      expect(data[:users][0][:username]).to eq(user.username)
+      expect(data[0][:attributes][:api_key]).to eq(user.api_key)
+      expect(data[0][:attributes][:username]).to eq(user.username)
 
       get "/api/v1/users/#{user.id}"
 
       expect(response.status).to eq(200)
 
-      data = JSON.parse(response.body, symbolize_names: true)
+      data = JSON.parse(response.body, symbolize_names: true)[:data]
 
-      expect(data[:user][:id]).to eq(user.id)
-      expect(data[:user][:username]).to eq(user.username)
+      expect(data[:attributes][:api_key]).to eq(user.api_key)
+      expect(data[:attributes][:username]).to eq(user.username)
     end
   end
 
