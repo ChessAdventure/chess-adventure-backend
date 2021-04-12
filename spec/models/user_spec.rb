@@ -7,8 +7,6 @@ describe User, type: :model do
 
       expect(User.first.username).to eq(user.username)
       expect(User.first.api_key).not_to be(nil)
-
-      binding.pry
     end
   end
 end
