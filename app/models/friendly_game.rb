@@ -1,12 +1,11 @@
 class FriendlyGame < ApplicationRecord
   after_initialize :default_fen, :generate_extension, :default_status
 
-  validates_presence_of :status
   validates_presence_of :starting_fen
   validates_presence_of :current_fen, on: :update
 
-  belongs_to :white, class_name: 'User'
-  belongs_to :black, class_name: 'User'
+  belongs_to :white, class_name: 'User', optional: true
+  belongs_to :black, class_name: 'User', optional: true
 
   enum status: [:in_progress, :won, :lost, :drawn]
 

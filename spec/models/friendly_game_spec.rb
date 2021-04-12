@@ -2,7 +2,6 @@ require 'rails_helper'
 
 describe FriendlyGame, type: :model do
   describe 'validations' do
-    it { should validate_presence_of :status }
     it { should validate_presence_of(:current_fen).on(:update) }
     it { should validate_presence_of :starting_fen }
   end
