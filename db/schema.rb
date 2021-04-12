@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_11_181406) do
+ActiveRecord::Schema.define(version: 2021_04_12_182724) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 2021_04_11_181406) do
     t.string "current_fen"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "extension"
     t.index ["black_id"], name: "index_friendly_games_on_black_id"
     t.index ["white_id"], name: "index_friendly_games_on_white_id"
   end
