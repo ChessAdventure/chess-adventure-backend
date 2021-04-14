@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'friendly_games/create'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   mount ActionCable.server => '/cable'
   namespace :api do
@@ -9,6 +10,7 @@ Rails.application.routes.draw do
       post '/login',         to: 'sessions#create'
       post '/logout',        to: 'sessions#destroy'
       get '/logged_in',      to: 'sessions#is_logged_in?'
+      post '/friendly_games',to: 'friendly_games#create'
     end
   end
 end
