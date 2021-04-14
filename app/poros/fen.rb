@@ -5,7 +5,7 @@ class Fen
   NON_WHITE_BOARD = "rnbqkbnr/pppppppp/8/8/8/8/"
   FULL_WHITE_BOARD = "PPPPPPPP/RNBQKBNR".split('')
 
-  def initialize(fen_string, black = false)
+  def initialize(fen_string = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR', black = false)
     string_fragments = split(fen_string)
     @board = black ? string_fragments[:board].swapcase : string_fragments[:board]
     @to_move = string_fragments[:to_move]
@@ -16,7 +16,7 @@ class Fen
   end
 
   def fen
-    @board + " " + @to_move + " " + @castling + ' ' + @en_passant + " " + @half_moves + ' ' + @full_moves
+    @board + " " + @to_move + " " + @castling.to_s + ' ' + (@en_passant || '-') + " " + @half_moves + ' ' + @full_moves
   end
 
   def to_starting_position
