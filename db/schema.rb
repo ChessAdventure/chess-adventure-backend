@@ -10,10 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_10_211738) do
+ActiveRecord::Schema.define(version: 2021_04_12_182724) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "friendly_games", force: :cascade do |t|
+    t.bigint "white_id"
+    t.bigint "black_id"
+    t.integer "status"
+    t.string "starting_fen"
+    t.string "current_fen"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "extension"
+    t.index ["black_id"], name: "index_friendly_games_on_black_id"
+    t.index ["white_id"], name: "index_friendly_games_on_white_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "username"
@@ -23,4 +36,6 @@ ActiveRecord::Schema.define(version: 2021_04_10_211738) do
     t.string "api_key"
   end
 
+  add_foreign_key "friendly_games", "users", column: "black_id"
+  add_foreign_key "friendly_games", "users", column: "white_id"
 end
