@@ -1,7 +1,7 @@
 class Api::V1::FriendlyGamesController < ApplicationController
-  # def create
+  # def update
   #   binding.pry
-  #   ActionCable.server.broadcast 'friendly_games_channel', {"hello": "hi bye"}
+    # ActionCable.server.broadcast 'friendly_games_channel', {"hello": "hi bye"}
   # end
   def create
     if User.find_by(api_key: params[:api_key])

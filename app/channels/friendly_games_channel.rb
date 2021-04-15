@@ -3,7 +3,7 @@ class FriendlyGamesChannel < ApplicationCable::Channel
     stream_from "friendly_games_channel" # when ready, change this to:
     #  stream_from "friendly_games_channel_#{friendly_game.extension}"
     # this is where you should call params
-    binding.pry
+    # binding.pry
   end
 
   def unsubscribed
