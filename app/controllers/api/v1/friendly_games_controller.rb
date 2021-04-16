@@ -22,7 +22,7 @@ class Api::V1::FriendlyGamesController < ApplicationController
   protected
 
   def valid?(params)
-    game = FriendlyGame.find_by(extension: ext) rescue nil
+    game = FriendlyGame.find_by(extension: params[:extension]) rescue nil
     id = User.find_by(api_key: api).id rescue nil
     if game && id
       { w: game.white_id, b: game.black_id }[game.current_fen.split(' ')[1].to_sym] == id

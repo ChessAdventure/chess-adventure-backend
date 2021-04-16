@@ -11,7 +11,7 @@ Rails.application.routes.draw do
       post '/logout',           to: 'sessions#destroy'
       get '/logged_in',         to: 'sessions#is_logged_in?'
       post '/friendly_games',   to: 'friendly_games#create'
-      patch '/friendly_games',  to: 'friendly_games#upate'
+      patch '/friendly_games',  to: 'friendly_games#update'
     end
   end
 end
