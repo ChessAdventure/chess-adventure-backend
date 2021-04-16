@@ -20,9 +20,4 @@ class FriendlyGame < ApplicationRecord
   def default_status
     self.status ||= 0
   end
-
-  def update
-    # broadcast here to chennel when the fen is updated?
-    # ActionCable.server.broadcast("friendly_games_channel")
-  end
 end
