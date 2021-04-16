@@ -12,7 +12,8 @@ class Api::V1::FriendlyGamesController < ApplicationController
 
   def update
     if valid?(params)
-      game = FriendlyGame.find_by(extension: params[:extension]).current_fen = params[:fen]
+      game = FriendlyGame.find_by(extension: params[:extension])
+      game.current_fen = params[:fen]
       ActionCable.server.broadcast "friendly_games_channel_#{game.extension}", FriendlyGameSerializer.new(game)
     else
       render json: { errors: ['not yours to move'] }, status: 501
