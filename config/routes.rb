@@ -4,13 +4,14 @@ Rails.application.routes.draw do
   mount ActionCable.server => '/cable'
   namespace :api do
     namespace :v1 do
-      post '/users',         to: 'users#create'
-      get '/users/:user_id', to: 'users#show'
-      get '/users',          to: 'users#index'
-      post '/login',         to: 'sessions#create'
-      post '/logout',        to: 'sessions#destroy'
-      get '/logged_in',      to: 'sessions#is_logged_in?'
-      post '/friendly_games',to: 'friendly_games#create'
+      post '/users',            to: 'users#create'
+      get '/users/:user_id',    to: 'users#show'
+      get '/users',             to: 'users#index'
+      post '/login',            to: 'sessions#create'
+      post '/logout',           to: 'sessions#destroy'
+      get '/logged_in',         to: 'sessions#is_logged_in?'
+      post '/friendly_games',   to: 'friendly_games#create'
+      patch '/friendly_games',  to: 'friendly_games#upate'
     end
   end
 end
