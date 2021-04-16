@@ -1,4 +1,4 @@
 class FriendlyGameSerializer
   include FastJsonapi::ObjectSerializer
-  attributes :extension
+  attributes :extension, :current_fen
 end
