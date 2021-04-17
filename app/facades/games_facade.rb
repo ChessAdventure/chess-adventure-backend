@@ -2,8 +2,13 @@ class GamesFacade
 	class << self
 
     def repurpose(params)
-      if params[:status]
-
+      if params[:extension]
+        game = FriendlyGame.find_by(extension: ext)
+        if game.status == 3
+          FriendlyGame.create(starting_fen: game.starting_fen, black: game.white_id, black: game.black_id)
+        else
+          new_game(game)
+        end
       else
         fen = Fen.new().to_starting_position
         FriendlyGame.create(starting_fen: fen.fen)
@@ -29,5 +34,15 @@ class GamesFacade
     end
 
     private
+
+    def new_game(game)
+      if game.status == 1
+        fen = Fen.new(game.current_fen).to_starting_position
+        FriendlyGame.create(starting_fen: fen.fen, white_id: game.white_id, black_id: game.black_id)
+      else
+        fen = Fen.new(game.current_fen, true).to_starting_position
+        FriendlyGame.create(starting_fen: fen.fen, white_id: game.black_id, black_id: game.white_id)
+      end
+    end
   end
 end
