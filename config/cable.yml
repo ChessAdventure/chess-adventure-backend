@@ -11,5 +11,5 @@ test:
 
 production:
   adapter: redis
-  url: redis://redistogo:911a53b9cc0b8b5d429ff58f802f4347@scat.redistogo.com:11504/
+  url: ENV["REDIS_KEY"]
   channel_prefix: chess-adventure-backend_production
