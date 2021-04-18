@@ -83,4 +83,8 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
   config.action_cable.url = "wss://chess-adventure-backend.herokuapp.com/cable"
+  config.action_cable.allowed_request_origins = [
+    'https://chessquestadventuretest.herokuapp.com',
+    'http://localhost:3000', /http:\/\/chessquestadventuretest.herokuapp.com.*/
+  ]
 end
