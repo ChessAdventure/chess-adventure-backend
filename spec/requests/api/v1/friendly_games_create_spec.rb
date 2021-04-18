@@ -34,8 +34,7 @@ describe 'FriendlyGames create path' do
       game_params = {
         current_fen: game.current_fen,
         extension: game_data[:attributes][:extension],
-        status: game.status,
-        api_key: user.api_key
+        status: game.status
       }
 
       patch '/api/v1/friendly_games', params: JSON.generate(game_params), headers: headers
@@ -63,13 +62,73 @@ describe 'FriendlyGames create path' do
       }
       headers = { 'CONTENT_TYPE' => 'application/json' }
 
-      patch '/api/v1/friendly_games', headers: headers
+      post '/api/v1/friendly_games', params: JSON.generate(user_data), headers: headers
 
-      data = JSON.parse(response.body, symbolize_names: true)[:data]
+      game = FriendlyGame.last
+      game.white_id = user.id
+      game.save
+
+      game_data = JSON.parse(response.body, symbolize_names: true)[:data]
+
+      game_params = {
+        current_fen: game.current_fen,
+        extension: game_data[:attributes][:extension],
+        status: game.status
+      }
+
+      patch '/api/v1/friendly_games', params: JSON.generate(game_params), headers: headers
 
       expect(response.status).to eq(501)
-      expect(data).to eq(nil)
-      expect(response.body.include?("not yours to move")).to eq(true)
+    end
+    it 'should not update a friendly_game if its not players turn' do
+      user = User.create(username: 'John Doe', password: 'Password')
+      user_data = {
+        api_key: user.api_key
+      }
+      headers = { 'CONTENT_TYPE' => 'application/json' }
+
+      post '/api/v1/friendly_games', params: JSON.generate(user_data), headers: headers
+
+      game = FriendlyGame.last
+      game.white_id = user.id
+      game.save
+      game_data = JSON.parse(response.body, symbolize_names: true)[:data]
+
+      game_params = {
+        current_fen: game.current_fen,
+        extension: game_data[:attributes][:extension],
+        status: game.status
+      }
+
+      patch '/api/v1/friendly_games', params: JSON.generate(game_params), headers: headers
+
+      expect(response.status).to eq(501)
+      expect(response.body.include?("It's not your turn")).to eq(true)
+    end
+    it 'should not update a friendly_game if player does not own piece' do
+      user = User.create(username: 'John Doe', password: 'Password')
+      user_data = {
+        api_key: user.api_key
+      }
+      headers = { 'CONTENT_TYPE' => 'application/json' }
+
+      post '/api/v1/friendly_games', params: JSON.generate(user_data), headers: headers
+
+      game = FriendlyGame.last
+      game.white_id = user.id
+      game.save
+      game_data = JSON.parse(response.body, symbolize_names: true)[:data]
+
+      game_params = {
+        current_fen: game.current_fen,
+        extension: game_data[:attributes][:extension],
+        status: game.status
+      }
+
+      patch '/api/v1/friendly_games', params: JSON.generate(game_params), headers: headers
+
+      expect(response.status).to eq(501)
+      expect(response.body.include?("Not yours to move")).to eq(true)
     end
   end
 end
