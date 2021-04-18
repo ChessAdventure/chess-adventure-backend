@@ -91,6 +91,29 @@ describe 'User paths' do
 
       expect(data).to eq('no such user, please try again')
     end
+
+    it 'should not login with mismatched password' do
+      user = User.create(username: 'John Doe', password: 'Password', 
+        password_confirmation: 'Some Other Password')
+
+      data = {
+        user: {
+          username: 'John Doe',
+          password: 'Password',
+          password_confirmation: 'Some Other Password'
+        }
+      }
+
+      headers = { 'CONTENT_TYPE' => 'application/json' }
+
+      post '/api/v1/login', params: JSON.generate(data), headers: headers
+
+      expect(response.status).to eq(401)
+
+      data = JSON.parse(response.body, symbolize_names: true)[:errors][0]
+
+      expect(data).to eq('no such user, please try again')
+    end
   end
 
 end
