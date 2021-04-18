@@ -5,7 +5,7 @@ class GamesFacade
       if params[:extension]
         game = FriendlyGame.find_by(extension: ext)
         if game.status == 3
-          FriendlyGame.create(starting_fen: game.starting_fen, black: game.white_id, black: game.black_id)
+          FriendlyGame.create(starting_fen: game.starting_fen, white: game.white_id, black: game.black_id)
         else
           new_game(game)
         end
