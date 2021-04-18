@@ -145,4 +145,25 @@ describe 'User paths' do
     end
   end
 
+  describe 'sad' do
+    it 'should recognize not logged in' do
+      data = {
+        user: {
+          username: '',
+          password: '',
+          password_confirmation: ''
+        }
+      }
+      headers = { 'CONTENT_TYPE' => 'application/json' }
+
+      get '/api/v1/logged_in', params: JSON.generate(data), headers: headers
+
+      data = JSON.parse(response.body, symbolize_names: true)
+
+      expect(response.status).to eq(401)
+      expect(data[:logged_in]).to eq(false)
+      expect(data[:message]).to eq('no such user')
+    end
+  end
+
 end
