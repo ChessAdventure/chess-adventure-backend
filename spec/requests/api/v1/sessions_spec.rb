@@ -27,13 +27,13 @@ describe 'User paths' do
 
   describe 'sad' do
     it 'should not find user not there' do
-    # not adding user before hand
-    # should create user but have no data?
+      user = User.create(username: 'John Doe', password: 'Password')
+
       data = {
         user: {
-          username: 'John Doe',
-          password: 'Password',
-          password_confirmation: 'Password'
+          username: '',
+          password: '',
+          password_confirmation: ''
         }
       }
 
