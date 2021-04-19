@@ -3,7 +3,7 @@ class GamesFacade
 
     def repurpose(params)
       if params[:extension]
-        game = FriendlyGame.find_by(extension: ext)
+        game = FriendlyGame.find_by(extension: params[:extension])
         if next_game = game.next_game
           next_game
         else
