@@ -110,7 +110,6 @@ describe 'FriendlyGames create path' do
       patch '/api/v1/friendly_games', params: JSON.generate(game_params), headers: headers
 
       expect(response.status).to eq(501)
-      # expect(response.body.include?("It's not your turn")).to eq(true)
     end
   end
 end
