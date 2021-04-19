@@ -19,7 +19,7 @@ class Api::V1::FriendlyGamesController < ApplicationController
       ActionCable.server.broadcast "friendly_games_channel_#{game.extension}", FriendlyGameSerializer.new(game)
       render json: { 'get it together chris': 'but actually'}, status: 200
     else
-      render json: { errors: ['not yours to move'] }, status: 501
+      render json: { errors: ['Not yours to move'] }, status: 501
     end
   end
 
