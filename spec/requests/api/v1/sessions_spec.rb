@@ -94,14 +94,14 @@ describe 'User paths' do
       end
 
       it 'should not login with mismatched password' do
-        user = User.create(username: 'John Doe', password: 'Password', 
-          password_confirmation: 'Some Other Password')
+        user = User.create(username: 'John Doe', password: 'smth', 
+          password_confirmation: 'smth_else')
 
         data = {
           user: {
             username: 'John Doe',
-            password: 'Password',
-            password_confirmation: 'Some Other Password'
+            password: 'smth',
+            password_confirmation: 'smth_else'
           }
         }
 
@@ -190,12 +190,42 @@ describe 'User paths' do
 
         data = JSON.parse(response.body, symbolize_names: true)
 
-        expect(response.status).to eq(200)
         expect(data[:logged_in]).to eq(true)
 
         post '/api/v1/logout', params: JSON.generate(data), headers: headers
 
         expect(response.status).to eq(200)
+      end
+    end
+
+    describe 'sad' do
+      it 'should not logout if not logged in' do
+        user = User.create(username: 'John Doe', password: 'Password')
+
+        data = {
+          user: {
+            username: 'John Doe',
+            password: 'Password',
+            password_confirmation: 'Password'
+          }
+        }
+        headers = { 'CONTENT_TYPE' => 'application/json' }
+
+        get '/api/v1/logged_in', params: JSON.generate(data), headers: headers
+
+        expect(response.status).to eq(401)
+
+        data = JSON.parse(response.body, symbolize_names: true)
+
+        expect(data[:logged_in]).to eq(false)
+
+        post '/api/v1/logout', params: JSON.generate(data), headers: headers
+
+        data = JSON.parse(response.body, symbolize_names: true)
+
+        expect(response.status).to eq(401)
+        expect(data[:logged_out]).to eq(false)
+        expect(data[:message]).to eq('log out unsuccessful')
       end
     end
   end
