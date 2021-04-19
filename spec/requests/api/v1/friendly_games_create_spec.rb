@@ -94,14 +94,20 @@ describe 'FriendlyGames create path' do
       game_data = JSON.parse(response.body, symbolize_names: true)[:data]
 
       game_params = {
-        current_fen: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPP/RNBQKBNR w KQkq - 0 1\"}}}',
+        fen: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPP/RNBQKBNR w KQkq - 0 1\"}}}',
+        extension: game_data[:attributes][:extension],
+        status: game.status,
+        api_key: user.api_key
+      }
+      game_params2 = {
+        fen: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPP/RNBQKBNR b KQkq - 0 1\"}}}',
         extension: game_data[:attributes][:extension],
         status: game.status,
         api_key: user.api_key
       }
 
       patch '/api/v1/friendly_games', params: JSON.generate(game_params), headers: headers
-      patch '/api/v1/friendly_games', params: JSON.generate(game_params), headers: headers
+      patch '/api/v1/friendly_games', params: JSON.generate(game_params2), headers: headers
 
       expect(response.status).to eq(501)
       # expect(response.body.include?("It's not your turn")).to eq(true)

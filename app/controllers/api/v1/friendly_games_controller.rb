@@ -11,6 +11,7 @@ class Api::V1::FriendlyGamesController < ApplicationController
     end
 
   def update
+    require "pry"; binding.pry
     if valid?(params)
       game = FriendlyGame.find_by(extension: params[:extension])
       game.current_fen = params[:fen]
@@ -29,7 +30,7 @@ class Api::V1::FriendlyGamesController < ApplicationController
     game = FriendlyGame.find_by(extension: params[:extension]) rescue nil
     id = User.find_by(api_key: params[:api_key]).id rescue nil
     if game && id
-      { w: game.white_id, b: game.black_id }[game.current_fen.split(' ')[1].to_sym] == id
+      { 'w' => game.white_id, 'b' => game.black_id }[game.current_fen.split(' ')[1].to_sym] == id
     else
       false
     end
