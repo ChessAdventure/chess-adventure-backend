@@ -6,6 +6,7 @@ class FriendlyGame < ApplicationRecord
 
   belongs_to :white, class_name: 'User', optional: true
   belongs_to :black, class_name: 'User', optional: true
+  belongs_to :next_game, class_name: 'FriendlyGame', optional: true
 
   enum status: [:in_progress, :won, :lost, :drawn]
 
