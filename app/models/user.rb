@@ -5,6 +5,7 @@ class User < ApplicationRecord
   validates :username, presence: true
   validates :username, uniqueness: { case_sensitive: false }
   validates :username, length: { minimum: 4 }
+  validates :username, format: { without: /\s/}
 
   def set_api
     self.api_key = SecureRandom.uuid

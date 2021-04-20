@@ -14,8 +14,8 @@ describe GamesFacade do
       end
 
       it 'should make a new game from the same position in a tie' do
-        user = User.create(username: 'John Doe', password: 'Password')
-        user2 = User.create(username: 'Jane Doe', password: 'Password')
+        user = User.create(username: 'JohnDoe', password: 'Password')
+        user2 = User.create(username: 'JaneDoe', password: 'Password')
         game = FriendlyGame.create(starting_fen: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPP2/RNBQKBNR w KQkq - 0 1', current_fen: '1R6/p2r4/2ppkp2/6p1/2PKP2p/P4P2/6PP/8 b - - 0 0', white_id: user.id, black_id: user2.id, status: 3)
 
         params = {
@@ -29,8 +29,8 @@ describe GamesFacade do
       end
 
       it 'should properly keep white as white if it wins' do
-        user = User.create(username: 'John Doe', password: 'Password')
-        user2 = User.create(username: 'Jane Doe', password: 'Password')
+        user = User.create(username: 'JohnDoe', password: 'Password')
+        user2 = User.create(username: 'JaneDoe', password: 'Password')
         game = FriendlyGame.create(starting_fen: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPP2/RNBQKBNR w KQkq - 0 1', current_fen: '1R6/p2r4/2ppkp2/6p1/2PKP2p/P4P2/6PP/8 b - - 0 0', white_id: user.id, black_id: user2.id, status: 1)
 
         params = {
@@ -44,8 +44,8 @@ describe GamesFacade do
       end
 
       it 'should properly keep make black white if it wins' do
-        user = User.create(username: 'John Doe', password: 'Password')
-        user2 = User.create(username: 'Jane Doe', password: 'Password')
+        user = User.create(username: 'JohnDoe', password: 'Password')
+        user2 = User.create(username: 'JaneDoe', password: 'Password')
         game = FriendlyGame.create(starting_fen: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPP2/RNBQKBNR w KQkq - 0 1', current_fen: '1R6/3r4/2ppkp2/6p1/2PKP2p/P4P2/6PP/8 b - - 0 0', white_id: user.id, black_id: user2.id, status: 2)
 
         params = {
@@ -59,8 +59,8 @@ describe GamesFacade do
       end
 
       it 'should not make a new game if one already exists' do
-        user = User.create(username: 'John Doe', password: 'Password')
-        user2 = User.create(username: 'Jane Doe', password: 'Password')
+        user = User.create(username: 'JohnDoe', password: 'Password')
+        user2 = User.create(username: 'JaneDoe', password: 'Password')
         game = FriendlyGame.create(starting_fen: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPP2/RNBQKBNR w KQkq - 0 1', current_fen: '1R6/3r4/2ppkp2/6p1/2PKP2p/P4P2/6PP/8 b - - 0 0', white_id: user.id, black_id: user2.id, status: 2)
 
         game2 = FriendlyGame.create(starting_fen: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPP2/RNBQKBNR w KQkq - 0 1')
@@ -78,8 +78,8 @@ describe GamesFacade do
 
     describe 'add_player?' do
       it 'should add the first player as white' do
-        user = User.create(username: 'John Doe', password: 'Password')
-        user2 = User.create(username: 'Jane Doe', password: 'Password')
+        user = User.create(username: 'JohnDoe', password: 'Password')
+        user2 = User.create(username: 'JaneDoe', password: 'Password')
         game = FriendlyGame.create(starting_fen: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPP2/RNBQKBNR w KQkq - 0 1')
 
         GamesFacade.add_player?(game.extension, user.api_key)
@@ -103,8 +103,8 @@ describe GamesFacade do
       end
 
       it 'should not error if game does not exist' do
-        user = User.create(username: 'John Doe', password: 'Password')
-        user2 = User.create(username: 'Jane Doe', password: 'Password')
+        user = User.create(username: 'JohnDoe', password: 'Password')
+        user2 = User.create(username: 'JaneDoe', password: 'Password')
 
         GamesFacade.add_player?('dGGGG', user.api_key)
       end

@@ -5,7 +5,7 @@ describe 'User paths' do
     it 'should create a user' do
       data = {
         user: {
-          username: 'John Doe',
+          username: 'JohnDoe',
           password: 'Password',
           password_confirmation: 'Password'
         }
@@ -19,11 +19,11 @@ describe 'User paths' do
       data = JSON.parse(response.body, symbolize_names: true)[:data]
 
       expect(User.last.api_key).to eq(data[:attributes][:api_key])
-      expect(data[:attributes][:username]).to eq('John Doe')
+      expect(data[:attributes][:username]).to eq('JohnDoe')
     end
 
     it 'should show a user, and users' do
-      user = User.create(username: 'John Doe', password: 'Password')
+      user = User.create(username: 'JohnDoe', password: 'Password')
 
       get '/api/v1/users'
 
@@ -47,11 +47,11 @@ describe 'User paths' do
 
   describe 'sad' do
     it 'should not create a user' do
-      User.create(username: 'John Doe', password: 'Password')
+      User.create(username: 'JohnDoe', password: 'Password')
 
       data = {
         user: {
-          username: 'John Doe',
+          username: 'JohnDoe',
           password: 'Password',
           password_confirmation: 'Password'
         }
@@ -68,7 +68,7 @@ describe 'User paths' do
 
       data = {
         user: {
-          username: 'Jane Doe',
+          username: 'JaneDoe',
           password: 'Pasword',
           password_confirmation: 'Password'
         }
@@ -93,7 +93,7 @@ describe 'User paths' do
 
       expect(data[:errors][0]).to eq("no users found")
 
-      user = User.create(username: 'John Doe', password: 'Password')
+      user = User.create(username: 'JohnDoe', password: 'Password')
 
       get "/api/v1/users/#{user.id + 1}"
 

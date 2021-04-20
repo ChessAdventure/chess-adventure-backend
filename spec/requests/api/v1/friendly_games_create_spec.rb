@@ -3,7 +3,7 @@ require 'rails_helper'
 describe 'FriendlyGames create path' do
   describe 'happy' do
     it 'should be able to create a new friendly_game' do
-      user = User.create(username: 'John Doe', password: 'Password')
+      user = User.create(username: 'JohnDoe', password: 'Password')
       data = {
         api_key: user.api_key
       }
@@ -18,7 +18,7 @@ describe 'FriendlyGames create path' do
       expect(FriendlyGame.last.extension).to eq(data[:attributes][:extension])
     end
     it 'should be able to update a friendly_game' do
-      user = User.create(username: 'John Doe', password: 'Password')
+      user = User.create(username: 'JohnDoe', password: 'Password')
       user_data = {
         api_key: user.api_key
       }
@@ -56,7 +56,7 @@ describe 'FriendlyGames create path' do
       expect(data).to eq(nil)
     end
     it 'should not update a friendly_game if attributes are missing' do
-      user = User.create(username: 'John Doe', password: 'Password')
+      user = User.create(username: 'JohnDoe', password: 'Password')
       user_data = {
         api_key: user.api_key
       }
@@ -80,7 +80,7 @@ describe 'FriendlyGames create path' do
       expect(response.status).to eq(501)
     end
     it 'should not update a friendly_game if its not players turn' do
-      user = User.create(username: 'John Doe', password: 'Password')
+      user = User.create(username: 'JohnDoe', password: 'Password')
       user_data = {
         api_key: user.api_key
       }
