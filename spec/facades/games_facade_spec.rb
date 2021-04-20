@@ -16,9 +16,16 @@ describe GamesFacade do
       it 'should make a new game from the same position in a tie' do
         user = User.create(username: 'John Doe', password: 'Password')
         user2 = User.create(username: 'Jane Doe', password: 'Password')
-        game = FriendlyGame.create(starting_fen: 'rnbqkbnr/pppppppp/8/8/8/8/PPPP2PP/RNBQKBNR w KQkq - 0 1', current_fen: '1R6/p2r4/2ppkp2/6p1/2PKP2p/P4P2/6PP/8 b - - 0 0', white_id: user.id, black_id: user2.id, status: 3)
+        game = FriendlyGame.create(starting_fen: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPP2/RNBQKBNR w KQkq - 0 1', current_fen: '1R6/p2r4/2ppkp2/6p1/2PKP2p/P4P2/6PP/8 b - - 0 0', white_id: user.id, black_id: user2.id, status: 3)
 
-        params = {}
+        params = {
+          extension: game.extension
+        }
+
+        new_game = GamesFacade.repurpose(params)
+        expect(new_game.current_fen).to eq(game.starting_fen)
+        expect(new_game.white_id).to eq(game.white_id)
+        expect(new_game.black_id).to eq(game.black_id)
       end
     end
   end
