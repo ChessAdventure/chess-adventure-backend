@@ -75,5 +75,32 @@ describe GamesFacade do
         expect(new_game).to eq(game2)
       end
     end
+
+    describe 'add_player?' do
+      it 'should add the first player as white' do
+        user = User.create(username: 'John Doe', password: 'Password')
+        user2 = User.create(username: 'Jane Doe', password: 'Password')
+        game = FriendlyGame.create(starting_fen: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPP2/RNBQKBNR w KQkq - 0 1')
+
+        GamesFacade.add_player?(game.extension, user.api_key)
+        game = FriendlyGame.find(game.id)
+
+        expect(game.white_id).to eq(user.id)
+        expect(game.black_id).to be nil
+
+        
+        GamesFacade.add_player?(game.extension, user.api_key)
+        game = FriendlyGame.find(game.id)
+
+        expect(game.white_id).to eq(user.id)
+        expect(game.black_id).to be nil
+
+        GamesFacade.add_player?(game.extension, user2.api_key)
+        game = FriendlyGame.find(game.id)
+
+        expect(game.white_id).to eq(user.id)
+        expect(game.black_id).to eq(user2.id)
+      end
+    end
   end
 end
