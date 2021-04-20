@@ -4,11 +4,11 @@ describe 'User paths' do
   describe 'logging in' do 
     describe 'happy' do
       it 'should be able to login' do
-        user = User.create(username: 'John Doe', password: 'Password')
+        user = User.create(username: 'JohnDoe', password: 'Password')
 
         data = {
           user: {
-            username: 'John Doe',
+            username: 'JohnDoe',
             password: 'Password',
             password_confirmation: 'Password'
           }
@@ -28,7 +28,7 @@ describe 'User paths' do
 
     describe 'sad' do
       it 'should not find user not there' do
-        user = User.create(username: 'John Doe', password: 'Password')
+        user = User.create(username: 'JohnDoe', password: 'Password')
 
         data = {
           user: {
@@ -50,11 +50,11 @@ describe 'User paths' do
       end
 
       it 'should not login with incorrect password' do
-        user = User.create(username: 'John Doe', password: 'Password')
+        user = User.create(username: 'JohnDoe', password: 'Password')
 
         data = {
           user: {
-            username: 'John Doe',
+            username: 'JohnDoe',
             password: 'WrongPassword',
             password_confirmation: 'WrongPassword'
           }
@@ -72,7 +72,7 @@ describe 'User paths' do
       end
 
       it 'should not login with missing username' do
-        user = User.create(username: 'John Doe', password: 'Password')
+        user = User.create(username: 'JohnDoe', password: 'Password')
 
         data = {
           user: {
@@ -94,12 +94,12 @@ describe 'User paths' do
       end
 
       it 'should not login with mismatched password' do
-        user = User.create(username: 'John Doe', password: 'smth', 
+        user = User.create(username: 'JohnDoe', password: 'smth', 
           password_confirmation: 'smth_else')
 
         data = {
           user: {
-            username: 'John Doe',
+            username: 'JohnDoe',
             password: 'smth',
             password_confirmation: 'smth_else'
           }
@@ -121,11 +121,11 @@ describe 'User paths' do
   describe 'user is logged in method' do
     describe 'happy' do
       it 'should be able to login' do
-        user = User.create(username: 'John Doe', password: 'Password')
+        user = User.create(username: 'JohnDoe', password: 'Password')
 
         data = {
           user: {
-            username: 'John Doe',
+            username: 'JohnDoe',
             password: 'Password',
             password_confirmation: 'Password'
           }
@@ -169,11 +169,11 @@ describe 'User paths' do
   describe 'logout' do
     describe 'happy' do
       it 'a user can log out when logged in' do
-        user = User.create(username: 'John Doe', password: 'Password')
+        user = User.create(username: 'JohnDoe', password: 'Password')
 
         data = {
           user: {
-            username: 'John Doe',
+            username: 'JohnDoe',
             password: 'Password',
             password_confirmation: 'Password'
           }
@@ -200,11 +200,11 @@ describe 'User paths' do
 
     describe 'sad' do
       it 'should not logout if not logged in' do
-        user = User.create(username: 'John Doe', password: 'Password')
+        user = User.create(username: 'JohnDoe', password: 'Password')
 
         data = {
           user: {
-            username: 'John Doe',
+            username: 'JohnDoe',
             password: 'Password',
             password_confirmation: 'Password'
           }
