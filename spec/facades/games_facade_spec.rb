@@ -101,6 +101,13 @@ describe GamesFacade do
         expect(game.white_id).to eq(user.id)
         expect(game.black_id).to eq(user2.id)
       end
+
+      it 'should not error if game does not exist' do
+        user = User.create(username: 'John Doe', password: 'Password')
+        user2 = User.create(username: 'Jane Doe', password: 'Password')
+
+        GamesFacade.add_player?('dGGGG', user.api_key)
+      end
     end
   end
 end
