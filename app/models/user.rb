@@ -9,4 +9,8 @@ class User < ApplicationRecord
   def set_api
     self.api_key = SecureRandom.uuid
   end
+
+  def last_game
+
+  end
 end
