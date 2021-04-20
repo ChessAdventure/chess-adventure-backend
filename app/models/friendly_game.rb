@@ -10,6 +10,10 @@ class FriendlyGame < ApplicationRecord
 
   enum status: [:in_progress, :won, :lost, :drawn]
 
+  scope :player, lambda{ |pid| 
+    where("black_id = ? or white_id= ?", pid, pid)
+  }
+
   def default_fen
     self.current_fen ||= self.starting_fen
   end
