@@ -22,7 +22,7 @@ describe User, type: :model do
       expect(user2.last_game).to eq(game2)
     end
 
-    it 'can tell he win/lose ratio' do
+    it 'can tell white win/lose ratio' do
       user = User.create!(username: 'JohnDoe', password: '123456')
       user2 = User.create!(username: 'JaneDoe', password: '123')
       game = FriendlyGame.create!(starting_fen: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1', white_id: user.id, black_id: user2.id, status: 1)
@@ -31,7 +31,6 @@ describe User, type: :model do
       game4 = FriendlyGame.create!(starting_fen: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1', white_id: user.id, black_id: user2.id, status: 0)
 
       expect(user.friendly_ratio).to eq('1-1')
-
     end
 
     it 'can tell the longest win streak' do

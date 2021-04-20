@@ -18,4 +18,8 @@ class User < ApplicationRecord
   def friendly_games
     FriendlyGame.player(id)
   end
+
+  def friendly_ratio
+    "#{FriendlyGame.wins(id).count}-#{FriendlyGame.loses(id).count}"
+  end
 end
