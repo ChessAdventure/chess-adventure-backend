@@ -9,15 +9,12 @@ class GamesFacade
         else
           if game.status == ('drawn' || 3)
             new_game = FriendlyGame.create(starting_fen: game.starting_fen, white_id: game.white_id, black_id: game.black_id)
-            game.next_game_id = new_game.id
-            game.save
-            new_game
           else
             new_game = new_game(game)
-            game.next_game_id = new_game.id
-            game.save
-            new_game
           end
+          game.next_game_id = new_game.id
+          game.save
+          new_game
         end
       else
         fen = Fen.new().to_starting_position
@@ -26,19 +23,12 @@ class GamesFacade
     end
 
     def add_player?(ext, api)
-      # TODO fix this method to not clog the server if 1000 people subscribe
-      # likely there should be a guard clause in the channel, not just here
-      # maybe two clauses, one for ext, one for valid api_key
       game = FriendlyGame.find_by(extension: ext) rescue nil
       id = User.find_by(api_key: api).id rescue nil
-      if game and (game.black_id || ((game.white_id != nil) && game.white_id == id))
+      if id.nil? || game.nil? or game.black_id or game.white_id == id
         true
       else
-        if game.white_id
-          game.black_id = id
-        else
-          game.white_id = id
-        end
+        game.white_id ? game.black_id = id : game.white_id = id
         game.save
       end
     end
