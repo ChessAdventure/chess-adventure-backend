@@ -14,6 +14,14 @@ class FriendlyGame < ApplicationRecord
     where("black_id = ? or white_id= ?", pid, pid)
   }
 
+  scope :wins, lambda{ |pid| 
+    where("white_id = ? and status = ?", pid, 1)
+  }
+
+  scope :loses, lambda{ |pid| 
+    where("white_id = ? and status = ?", pid, 2)
+  }
+
   def default_fen
     self.current_fen ||= self.starting_fen
   end
