@@ -7,8 +7,8 @@
 -   [Setup](#setup)
 -   [Testin](#testing)
 -   [Stack](#stack )
--   [What_Is_To_Come](#what-is-to-come)
--   [Resources Used](#resources-used)
+-   [What is to come](#what-is-to-come)
+-   [Resources used](#resources-used)
 -   [Authors](#authors)
 
 ### Setup
@@ -19,7 +19,7 @@
 
 ### What is to come
 
-### Resources Used
+### Resources used
 
 ### Authors
 
