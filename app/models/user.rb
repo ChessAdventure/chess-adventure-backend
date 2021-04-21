@@ -24,6 +24,30 @@ class User < ApplicationRecord
   end
 
   def streak
-    
+    wins = FriendlyGame.wins(id)
+    if wins.empty?
+      'No wins yet'
+    else
+      start_of_streak = wins.max_by do |game|
+        chain(game)
+      end
+      "#{chain(start_of_streak)} vs. #{start_of_streak.black.username}"
+    end
+  end
+
+  private
+
+  def chain(game, i = 0)
+    begin
+      if game.status == 'in_progress' || game.status == 'lost'
+        i
+      elsif game.status == 'drawn'
+        chain(game.next_game, i)
+      else
+        chain(game.next_game, i + 1)
+      end
+    rescue
+      i
+    end
   end
 end
