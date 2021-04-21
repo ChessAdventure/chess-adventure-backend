@@ -34,7 +34,18 @@ describe User, type: :model do
     end
 
     it 'can tell the longest win streak' do
+      user = User.create!(username: 'JohnDoe', password: '123456')
+      user2 = User.create!(username: 'JaneDoe', password: '123')
+      game = FriendlyGame.create!(starting_fen: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1', white_id: user.id, black_id: user2.id, status: 1)
+      game2 = FriendlyGame.create!(starting_fen: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1', white_id: user.id, black_id: user2.id, status: 1)
+      game3 = FriendlyGame.create!(starting_fen: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1', white_id: user.id, black_id: user2.id, status: 2)
+      game4 = FriendlyGame.create!(starting_fen: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1', white_id: user.id, black_id: user2.id, status: 0)
 
+      game.update(next_game_id: game2.id)
+      game2.update(next_game_id: game3.id)
+      game3.update(next_game_id: game4.id)
+
+      expect(user.streak).to eq("2 vs. #{user2.username}")
     end
   end
 end

@@ -22,4 +22,8 @@ class User < ApplicationRecord
   def friendly_ratio
     "#{FriendlyGame.wins(id).count}-#{FriendlyGame.loses(id).count}"
   end
+
+  def streak
+    
+  end
 end
