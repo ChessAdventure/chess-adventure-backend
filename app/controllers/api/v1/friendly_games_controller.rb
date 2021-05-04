@@ -2,7 +2,7 @@ class Api::V1::FriendlyGamesController < ApplicationController
   before_action :authenticate_user
 
   def create
-    if User.find_by(api_key: params[:api_key])
+    if current_user
       game = GamesFacade.repurpose(params)
       render json: FriendlyGameSerializer.new(game), status: :created
     else
@@ -29,7 +29,7 @@ class Api::V1::FriendlyGamesController < ApplicationController
 
   def valid?(params)
     game = FriendlyGame.find_by(extension: params[:extension]) rescue nil
-    id = User.find_by(api_key: params[:api_key]).id rescue nil
+    id = current_user.id
     if game && id
       { 'w' => game.white_id, 'b' => game.black_id }[game.current_fen.split(' ')[1]] == id
     else
