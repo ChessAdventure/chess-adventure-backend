@@ -1,4 +1,6 @@
 class Api::V1::FriendlyGamesController < ApplicationController
+  before_action :authenticate_user
+
   def create
     if User.find_by(api_key: params[:api_key])
       game = GamesFacade.repurpose(params)
