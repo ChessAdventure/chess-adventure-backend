@@ -1,8 +1,7 @@
 class FriendlyGamesChannel < ApplicationCable::Channel
   def subscribed
-    a = connect(params)
-    # puts "a is: #{a}"
-    GamesFacade.add_player?(params[:extension], a.id)
+    user = find_verified_user(params)
+    GamesFacade.add_player?(params[:extension], user.id) if user
     stream_from "friendly_games_channel_#{params[:extension]}"
     ActionCable.server.broadcast "friendly_games_channel_#{params[:extension]}", FriendlyGameSerializer.new(FriendlyGame.find_by(extension: params[:extension]))
   end
@@ -13,16 +12,9 @@ class FriendlyGamesChannel < ApplicationCable::Channel
 
   protected
 
-  def connect(params)
-    find_verified_user(params)
-  end
-
   def find_verified_user(params)
     token = Knock::AuthToken.new token: params[:token]
-
-    verified_user = User.find_by id: token.payload['sub']
-    return verified_user if verified_user
-
-    reject_unauthorized_connection
+    verified_user = User.find_by(id: token.payload['sub']) rescue nil
+    verified_user
   end
 end
