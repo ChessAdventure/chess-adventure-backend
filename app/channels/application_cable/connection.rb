@@ -4,14 +4,20 @@ module ApplicationCable
 
     def connect
       self.current_user = find_verified_user
-      logger.add_tags 'ActionCable', current_user.username
     end
 
-    protected:
+    protected
     def find_verified_user
-      if current_user = User.find_by(token: request.params[:token])
-        current_user
-      else
+      begin
+        header_array = request.headers[:HTTP_SEC_WEBSOCKET_PROTOCOL].split(',')
+        token = header_array[header_array.length-1]
+        decoded_token = JWT.decode token.strip, Rails.application.secrets.secret_key_base, true, { :algorithm => 'HS256' }
+        if (current_user = User.find((decoded_token[0])['sub']))
+          current_user
+        else
+          reject_unauthorized_connection
+        end
+      rescue
         reject_unauthorized_connection
       end
     end
