@@ -13,6 +13,7 @@ Rails.application.routes.draw do
       get '/logged_in',         to: 'sessions#is_logged_in?'
       post '/friendly_games',   to: 'friendly_games#create'
       patch '/friendly_games',  to: 'friendly_games#update'
+      post '/fishing',          to: 'ai_games#create'
     end
   end
 end

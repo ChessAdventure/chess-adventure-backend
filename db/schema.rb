@@ -10,10 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_19_192816) do
+ActiveRecord::Schema.define(version: 2021_05_08_201956) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "ai_games", force: :cascade do |t|
+    t.bigint "ai_quest_id"
+    t.integer "status"
+    t.string "starting_fen"
+    t.string "current_fen"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["ai_quest_id"], name: "index_ai_games_on_ai_quest_id"
+  end
+
+  create_table "ai_quests", force: :cascade do |t|
+    t.bigint "black_id"
+    t.integer "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["black_id"], name: "index_ai_quests_on_black_id"
+  end
 
   create_table "friendly_games", force: :cascade do |t|
     t.bigint "white_id"
@@ -38,6 +56,8 @@ ActiveRecord::Schema.define(version: 2021_04_19_192816) do
     t.string "api_key"
   end
 
+  add_foreign_key "ai_games", "ai_quests"
+  add_foreign_key "ai_quests", "users", column: "black_id"
   add_foreign_key "friendly_games", "friendly_games", column: "next_game_id"
   add_foreign_key "friendly_games", "users", column: "black_id"
   add_foreign_key "friendly_games", "users", column: "white_id"
