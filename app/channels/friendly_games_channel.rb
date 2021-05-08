@@ -1,7 +1,7 @@
 class FriendlyGamesChannel < ApplicationCable::Channel
   def subscribed
     a = connect(params)
-    puts a
+    puts "a is: #{a}"
     GamesFacade.add_player?(params[:extension], current_user.id)
     stream_from "friendly_games_channel_#{params[:extension]}"
     ActionCable.server.broadcast "friendly_games_channel_#{params[:extension]}", FriendlyGameSerializer.new(FriendlyGame.find_by(extension: params[:extension]))
@@ -14,7 +14,7 @@ class FriendlyGamesChannel < ApplicationCable::Channel
   protected
 
   def connect(params)
-    self.current_user = find_verified_user(params)
+    find_verified_user(params)
   end
 
   def find_verified_user(params)
