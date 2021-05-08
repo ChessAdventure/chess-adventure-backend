@@ -1,8 +1,8 @@
 class FriendlyGamesChannel < ApplicationCable::Channel
   def subscribed
     a = connect(params)
-    puts "a is: #{a}"
-    GamesFacade.add_player?(params[:extension], current_user.id)
+    # puts "a is: #{a}"
+    GamesFacade.add_player?(params[:extension], a.id)
     stream_from "friendly_games_channel_#{params[:extension]}"
     ActionCable.server.broadcast "friendly_games_channel_#{params[:extension]}", FriendlyGameSerializer.new(FriendlyGame.find_by(extension: params[:extension]))
   end
