@@ -13,8 +13,6 @@ class FriendlyGamesChannel < ApplicationCable::Channel
   protected
 
   def find_verified_user(params)
-    puts "ENCRYPTED COOKIES: #{cookies.encrypted}"
-    puts "user id? #{cookies.encrypted[:user_id]}"
     puts "params? #{params[:token]}"
   end
 end
