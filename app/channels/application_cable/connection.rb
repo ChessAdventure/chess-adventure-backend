@@ -9,6 +9,7 @@ module ApplicationCable
     protected
     def find_verified_user
       puts "ENCRYPTED COOKIES: #{cookies.encrypted}"
+      puts "user id? #{cookies.encrypted[:user_id]}"
     end
   end
 end
