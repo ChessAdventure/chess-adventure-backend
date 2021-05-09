@@ -22,10 +22,9 @@ class GamesFacade
       end
     end
 
-    def add_player?(ext, api)
+    def add_player?(ext, id)
       game = FriendlyGame.find_by(extension: ext) rescue nil
-      id = User.find_by(api_key: api).id rescue nil
-      if id.nil? || game.nil? or game.black_id or game.white_id == id
+      if game.nil? or game.black_id or game.white_id == id
         true
       else
         game.white_id ? game.black_id = id : game.white_id = id
