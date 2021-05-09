@@ -14,7 +14,8 @@ Rails.application.routes.draw do
       post '/friendly_games',   to: 'friendly_games#create'
       patch '/friendly_games',  to: 'friendly_games#update'
       post '/fishing',          to: 'ai_games#create'
-      patch '/fishing',          to: 'ai_games#update'
+      patch '/fishing',         to: 'ai_games#update'
+      post '/wash',             to: 'ai_games#wash'
     end
   end
 end

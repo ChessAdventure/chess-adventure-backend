@@ -8,4 +8,10 @@ class Api::V1::FriendlyGamesController < ApplicationController
 
     end
   end
+
+  def wash
+    fen = Fen.new(params[:fen])
+    fen.to_starting_position
+    render json: {data: "#{fen.fen}"}, status: :created
+  end
 end

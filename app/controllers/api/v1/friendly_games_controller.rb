@@ -19,7 +19,7 @@ class Api::V1::FriendlyGamesController < ApplicationController
       game.status = params[:status] if params[:status]
       game.save
       ActionCable.server.broadcast "friendly_games_channel_#{game.extension}", FriendlyGameSerializer.new(game)
-      render json: { 'get it together chris': 'but actually'}, status: 200
+      render json: { 'Succesful': 'Success'}, status: 200
     else
       render json: { errors: ['not yours to move'] }, status: 501
     end
