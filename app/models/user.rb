@@ -7,6 +7,11 @@ class User < ApplicationRecord
   validates :username, length: { minimum: 4 }
   validates :username, format: { without: /\s/}
 
+  def self.from_token_request request
+    username = request.params["auth"] && request.params["auth"]["username"]
+    self.find_by username: username
+  end
+
   def set_api
     self.api_key = SecureRandom.uuid
   end

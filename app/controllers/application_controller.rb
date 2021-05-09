@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  include Knock::Authenticable
   skip_before_action :verify_authenticity_token
   helper_method   :login!,
                   :logged_in?,
@@ -15,9 +16,9 @@ class ApplicationController < ActionController::Base
     !!session[:user_id]
   end
 
-  def current_user
-    @current_user ||= User.find(session[:user_id]) if session[:user_id]
-  end
+  # def current_user
+  #   @current_user ||= User.find(session[:user_id]) if session[:user_id]
+  # end
 
   # def authorized_user?
   #   @user == current_user
@@ -27,7 +28,7 @@ class ApplicationController < ActionController::Base
     session.clear
   end
 
-  # def set_user
-  #   @user = User.find_by(id: session[:user_id])
-  # end
+  def set_user
+    @user = User.find_by(id: session[:user_id])
+  end
 end

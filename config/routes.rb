@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
-  get 'friendly_games/create'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   mount ActionCable.server => '/cable'
   namespace :api do
     namespace :v1 do
+      post 'user_token' => 'user_token#create'
       post '/users',            to: 'users#create'
       get '/users/:user_id',    to: 'users#show'
       get '/users',             to: 'users#index'
