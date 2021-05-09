@@ -1,24 +1,30 @@
-# README
+# ChessPedition
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+<span style="font-size:1.4em;">
 
-Things you may want to cover:
+### Content
 
-* Ruby version
+-   [Setup](#setup)
+-   [Testin](#testing)
+-   [Stack](#stack )
+-   [What is to come](#what-is-to-come)
+-   [Resources used](#resources-used)
+-   [Authors](#authors)
 
-* System dependencies
+### Setup
 
-* Configuration
+### Testing
 
-* Database creation
+### Stack
 
-* Database initialization
+### What is to come
 
-* How to run the test suite
+### Resources used
 
-* Services (job queues, cache servers, search engines, etc.)
+### Authors
 
-* Deployment instructions
-
-* ...
+-   V Arruda | [github](https://github.com/nessaarruda) \| [linkedin](https://www.linkedin.com/in/vanessa-alves-de-arruda/)
+-   Max Ribbans | [github](https://github.com/ribbansmax) \| [linkedin](https://www.linkedin.com/in//)
+-   Chris Spohn | [github](https://github.com/https://github.com/CJSpohn) \| [linkedin](https://www.linkedin.com/in/chris-spohn/)
+-   Elsa Fluss | [github](https://github.com/elsafluss) \| [linkedin](https://www.linkedin.com/in/elsafluss/)
+-   Eric Campbell | [github](https://github.com/mainlyetcetera) \| [linkedin](https://www.linkedin.com/in/eric-campbell-32584719a/)
